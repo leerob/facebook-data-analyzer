@@ -1,5 +1,3 @@
-![Facebook](https://www.leejamesrobinson.com/img/facebook/banner.png)
-
 # Facebook Data Analyzer
 
 - "Which year was I the most active?"
