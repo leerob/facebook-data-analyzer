@@ -31,7 +31,7 @@ Friends Added By Year:
  - 2015: 33
  - 2014: 20
  - 2007: 5
-Number of Posts: 5917
+Number of Posts/Comments: 5917
 Songs Streamed: 43511
 Timeline Activity By Year:
  - 2016: 13903
