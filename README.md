@@ -4,10 +4,16 @@
 - "Who has commented on my pictures the most?"
 - "How many songs have I streamed?"
 
-This Python script will analyze the contents of your Facebook [data export](https://www.facebook.com/help/131112897028467) locally to produce the following output:
+This Python script will analyze the contents of your Facebook [data export](https://www.facebook.com/help/131112897028467) locally. To use this script, place `facebook.py` in the same folder as your Facebook data dump. Then, open the Terminal and run:
 
 ```bash
+$ pip install bs4 lxml
 $ python facebook.py
+```
+
+Which will produce the following output:
+
+```bash
 Number of Videos: 175
 Number of Photos: 292
 Number of Comments: 90
