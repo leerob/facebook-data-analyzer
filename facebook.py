@@ -11,7 +11,7 @@ def parse_videos():
     """
     Prints the total number of video files inside the /videos foler.
     """
-    _, __, filenames = os.walk('videos').next()
+    _, __, filenames = next(os.walk('videos'))
     print('Number of Videos: {}'.format(len(filenames)))
 
 
