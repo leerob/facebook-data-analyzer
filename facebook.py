@@ -11,6 +11,10 @@ def parse_videos():
     """
     Prints the total number of video files inside the /videos foler.
     """
+
+    if not os.path.exists('videos'):
+        return
+      
     _, __, filenames = next(os.walk('videos'))
     print('Number of Videos: {}'.format(len(filenames)))
 
@@ -25,6 +29,10 @@ def parse_photos():
     The actual photos are separated by album and have their own folders.
     There is a corresponding HTML file for each with metadata and the comments.
     """
+
+    if not os.path.exists('photos'):
+        return
+
     photo_count = 0
     photo_albums = []
     comment_counts = {}
