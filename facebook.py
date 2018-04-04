@@ -41,7 +41,7 @@ def parse_photos():
         comment_counts = parse_photo_album(filename, comment_counts)
 
     total_comment_count = len(comment_counts)
-    average_comments_per_photo = photo_count / float(total_comment_count)
+    average_comments_per_photo = total_comment_count / float(photo_count)
 
     print('Number of Photos: {}'.format(photo_count))
     print('Number of Comments: {}'.format(total_comment_count))
