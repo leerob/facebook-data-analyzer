@@ -17,7 +17,7 @@ Which will produce the following output:
 Number of Videos: 175
 Number of Photos: 292
 Number of Comments: 90
-Average Comments Per Photo: 3.24
+Average Comments Per Photo: 0.31
 Top 10 Commenters:
  - My Mom: 17
  - Another Person: 15
