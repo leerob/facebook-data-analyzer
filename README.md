@@ -1,5 +1,7 @@
 # Facebook Data Analyzer
 
+> Update December 2018: Unfortunately, Facebook has completed changed the format of their data export making this script no longer work. PRs are welcome if anyone would like to try and update it to match the new output format.
+
 - "Which year was I the most active?"
 - "Who has commented on my pictures the most?"
 - "How many songs have I streamed?"
@@ -55,4 +57,5 @@ Timeline Activity By Year:
 ```
 
 ## About
+
 For more information about how this was created, see my [blog post](https://www.leejamesrobinson.com/blog/analyzing-10-years-of-facebook-data/). Cheers! 🎉
