@@ -13,7 +13,8 @@ def find_fb_dir():
 
 def parse_videos():
     """
-    Prints the total number of video files inside the /videos folder.
+    Prints the total number of video files inside the /photos_and_videos folder
+    uploaded directly to Facebook.
     """
 
     if not os.path.exists('videos'):
@@ -31,7 +32,8 @@ def parse_photos():
     comments per photo and the top 10 most frequent commenters.
 
     The actual photos are separated by album and have their own folders.
-    There is a corresponding HTML file for each in the album folder with metadata and the comments.
+    There is an HTML file for each album in the /photos_and_videos/album 
+    folder with metadata and the comments.
     """
 
     if not os.path.exists('{}/photos_and_videos'.format(fb_dir)):
@@ -41,12 +43,13 @@ def parse_photos():
     photo_albums = []
     comment_counts = {}
 
-    for i, (dirpath, dirnames, filenames) in enumerate(os.walk(fb_dir + '/photos_and_videos')):
+    for i, (dirpath, dirnames, filenames) in enumerate(os.walk('{}/photos_and_videos'.format(fb_dir))):
         if dirpath == '{}/photos_and_videos/album'.format(fb_dir):
             # Retrieve album filenames
             photo_albums = filenames
-        elif i != 0:
-            # Ignore your_photos.html during the first iteration
+        elif filenames[0] != 'your_photos.html' and dirpath != '{}/photos_and_videos/stickers_used'.format(fb_dir):
+            # Ignore your_photos.html in the root photos_and_video file,
+            # along with any stickers in stickers_used
             photo_count += len(filenames)
 
     for filename in photo_albums:
@@ -172,7 +175,8 @@ def define_media_link(text):
     }
 
     video_dict = {
-        'youtube': 'https://www.youtube.com/attribution_link?'
+        'youtube': 'https://www.youtube.com/attribution_link?',
+        'vimeo': 'https://vimeo.com/'
     }
 
     for val in song_dict.values():
