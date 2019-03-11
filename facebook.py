@@ -13,14 +13,14 @@ def find_fb_dir():
 
 def parse_videos():
     """
-    Prints the total number of video files inside the /photos_and_videos folder
+    Prints the total number of video files inside the /photos_and_videos/videos folder
     uploaded directly to Facebook.
     """
 
-    if not os.path.exists('videos'):
+    if not os.path.exists('{}/photos_and_videos'.format(fb_dir)):
         return
       
-    _, __, filenames = next(os.walk('videos'))
+    _, __, filenames = next(os.walk('{}/photos_and_videos/videos'.format(fb_dir)))
     print('Number of Videos: {}'.format(len(filenames)))
 
 
@@ -47,9 +47,10 @@ def parse_photos():
         if dirpath == '{}/photos_and_videos/album'.format(fb_dir):
             # Retrieve album filenames
             photo_albums = filenames
-        elif filenames[0] != 'your_photos.html' and dirpath != '{}/photos_and_videos/stickers_used'.format(fb_dir):
-            # Ignore your_photos.html in the root photos_and_video file,
-            # along with any stickers in stickers_used
+        elif i != 0 and dirpath != '{}/photos_and_videos/stickers_used'.format(fb_dir) and dirpath != '{}/photos_and_videos/videos'.format(fb_dir):
+            # Skip the first iteration to ignore the html files in the
+            # root photos_and_videos file, along with any stickers in
+            # /stickers_used and videos in /videos
             photo_count += len(filenames)
 
     for filename in photo_albums:
@@ -225,7 +226,7 @@ def get_year(text):
 
 if __name__ == '__main__':
     fb_dir = find_fb_dir()
-    # parse_videos()
+    parse_videos()
     parse_photos()
     parse_friends_list()
     parse_timeline()
