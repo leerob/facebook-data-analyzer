@@ -16,11 +16,11 @@ def parse_videos():
     Prints the total number of video files inside the /photos_and_videos/videos folder
     uploaded directly to Facebook.
     """
-
-    if not os.path.exists('{}/photos_and_videos'.format(fb_dir)):
+    videos_dir = '{}/photos_and_videos/videos'.format(fb_dir)
+    if not os.path.exists(videos_dir):
         return
       
-    _, __, filenames = next(os.walk('{}/photos_and_videos/videos'.format(fb_dir)))
+    _, __, filenames = next(os.walk(videos_dir))
     print('Number of Videos: {}'.format(len(filenames)))
 
 
@@ -35,26 +35,30 @@ def parse_photos():
     There is an HTML file for each album in the /photos_and_videos/album 
     folder with metadata and the comments.
     """
-
-    if not os.path.exists('{}/photos_and_videos'.format(fb_dir)):
+    photos_and_videos_dir = '{}/photos_and_videos'.format(fb_dir)
+    if not os.path.exists(photos_and_videos_dir):
         return
 
+    album_dir = photos_and_videos_dir + '/album'
+    stickers_dir = photos_and_videos_dir + '/stickers_used'
+    videos_dir = photos_and_videos_dir + '/videos'
     photo_count = 0
     photo_albums = []
     comment_counts = {}
 
-    for i, (dirpath, dirnames, filenames) in enumerate(os.walk('{}/photos_and_videos'.format(fb_dir))):
-        if dirpath == '{}/photos_and_videos/album'.format(fb_dir):
+    for i, (dirpath, dirnames, filenames) in enumerate(os.walk(photos_and_videos_dir)):
+        if dirpath == album_dir:
             # Retrieve album filenames
             photo_albums = filenames
-        elif i != 0 and dirpath != '{}/photos_and_videos/stickers_used'.format(fb_dir) and dirpath != '{}/photos_and_videos/videos'.format(fb_dir):
+        elif i != 0 and dirpath != stickers_dir and dirpath != videos_dir:
             # Skip the first iteration to ignore the html files in the
             # root photos_and_videos file, along with any stickers in
             # /stickers_used and videos in /videos
             photo_count += len(filenames)
 
     for filename in photo_albums:
-        comment_counts = parse_photo_album(filename, comment_counts)
+        filepath = album_dir + '/{}'.format(filename)
+        comment_counts = parse_photo_album(filepath, comment_counts)
 
     total_comment_count = len(comment_counts)
     average_comments_per_photo = total_comment_count / float(photo_count)
@@ -66,7 +70,7 @@ def parse_photos():
     print_dict(comment_counts, end_index=10)
 
 
-def parse_photo_album(filename, comment_counts):
+def parse_photo_album(filepath, comment_counts):
     """
     Traverses the contents of a specific photo album HTML file.
 
@@ -76,7 +80,7 @@ def parse_photo_album(filename, comment_counts):
       <div class="meta">Wednesday, May 17, 2017 at 7:08am UTC+10</div>
     </div>
     """
-    f = codecs.open('{}/photos_and_videos/album/{}'.format(fb_dir, filename), 'r', 'utf-8')
+    f = codecs.open(filepath, 'r', 'utf-8')
     soup = BeautifulSoup(f.read(), 'lxml')
 
     for comment in soup.findAll('div', {'class': 'uiBoxGray'}):
