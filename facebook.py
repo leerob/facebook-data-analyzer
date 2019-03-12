@@ -131,13 +131,13 @@ def parse_timeline():
         </div>
     </div>
     """
-    f = codecs.open('{}/comments/comments.html'.format(fb_dir), 'r', 'utf-8')
-    comments_soup = BeautifulSoup(f.read(), 'lxml')
-    comments_data = comments_soup.findAll('div', {'class': 'uiBoxWhite'})
-
     f = codecs.open('{}/posts/your_posts.html'.format(fb_dir), 'r', 'utf-8')
     posts_soup = BeautifulSoup(f.read(), 'lxml')
     posts_data = posts_soup.findAll('div', {'class': 'uiBoxWhite'})
+
+    f = codecs.open('{}/comments/comments.html'.format(fb_dir), 'r', 'utf-8')
+    comments_soup = BeautifulSoup(f.read(), 'lxml')
+    comments_data = comments_soup.findAll('div', {'class': 'uiBoxWhite'})
 
     posts = 0
     songs = 0
@@ -145,14 +145,13 @@ def parse_timeline():
     comments = 0
 
     for post in posts_data:
-        shared_media = define_media_link(post.text)
-
-        if shared_media == 'song':
-            songs += 1
-        elif shared_media == 'video':
-            videos += 1
-        else:
-            posts += 1
+        for url in ['https://open.spotify.com/track/', 'https://soundcloud.com/']:
+            if url in post.text:
+                  songs += 1
+        for url in ['https://www.youtube.com/', 'https://vimeo.com/']:
+            if url in post.text:
+                  videos += 1
+        posts += 1
 
     for comment in comments_data:
         comments += 1
@@ -171,26 +170,6 @@ def parse_timeline():
     print('Videos Shared: {}'.format(videos))
     print('Timeline Activity By Year:')
     print_dict(metadata_map)
-
-
-def define_media_link(text):
-    song_dict = {
-        'spotify': 'https://open.spotify.com/track/',
-        'soundcloud': 'https://soundcloud.com/'
-    }
-
-    video_dict = {
-        'youtube': 'https://www.youtube.com/attribution_link?',
-        'vimeo': 'https://vimeo.com/'
-    }
-
-    for val in song_dict.values():
-        if val in text:
-            return 'song'
-    
-    for val in video_dict.values():
-        if val in text:
-            return 'video'
 
 
 def print_dict(dictionary, sort_index=1, end_index=100000):
