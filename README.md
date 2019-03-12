@@ -1,12 +1,10 @@
 # Facebook Data Analyzer
 
-> Update December 2018: Unfortunately, Facebook has completed changed the format of their data export making this script no longer work. PRs are welcome if anyone would like to try and update it to match the new output format.
-
 - "Which year was I the most active?"
 - "Who has commented on my pictures the most?"
-- "How many songs have I streamed?"
+- "How many songs and videos have I shared?"
 
-This Python script will analyze the contents of your Facebook [data export](https://www.facebook.com/help/131112897028467) locally. To use this script, place `facebook.py` in the same folder as your Facebook data dump. Then, open the Terminal and run:
+This Python script will analyze the contents of your Facebook [data export](https://www.facebook.com/help/131112897028467) locally. To use this script, place `facebook.py` in the same folder as your extracted Facebook data dump. Then, open the Terminal and run:
 
 ```bash
 $ pip install bs4 lxml
@@ -39,8 +37,10 @@ Friends Added By Year:
  - 2015: 33
  - 2014: 20
  - 2007: 5
-Number of Posts/Comments: 5917
-Songs Streamed: 43511
+Number of Posts: 3945
+Number of Comments: 1972
+Songs Shared: 43511
+Videos Shared: 1024
 Timeline Activity By Year:
  - 2016: 13903
  - 2015: 8599
